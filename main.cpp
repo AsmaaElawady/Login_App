@@ -1,18 +1,42 @@
-// FCI – Programming 1 – 2022 - Assignment 4
-// Program Name: .cpp // Last Modification Date: xx/xx/xxxx
-// Author1 and ID and Group: Salma ameer jalal, 20210505, A
-// Author2 and ID and Group: Marwa Sameh Taha , 20210514, A
-// Author3 and ID and Group:Asmaa Elawady Ibrahim,20210068,A
-// Teaching Assistant: Nesma mohamed
-//program purpose: No Purpose :)
+#include <sstream>
+#include <map>
+#include <cctype>
+#include <cmath>
 #include <iostream>
 #include <string>
 #include <regex>
 #include<fstream>
+#include<map>
 
 using namespace std;
 
 string username;
+//dictionary to encrypt the password
+map<char,string> passencrypt =
+{
+
+
+        {'a',"z"},{'b',"y"},{'c',"x"},{'d',"w"},{'e',"v"},
+        {'f',"u"},{'g',"t"},{'h',"s"},{'i',"r"},{'j',"q"},
+        {'k',"p"},{'l',"o"},{'m',"n"},{'n',"m"},{'o',"l"},
+        {'p',"k"},{'q',"j"},{'r',"i"},{'s',"h"},{'t',"g"},
+        {'u',"f"},{'v',"e"},{'w',"d"},{'x',"c"},{'y',"b"},
+        {'z',"a"},
+        {'A',"Z"},{'B',"Y"},{'C',"X"},{'D',"W"},{'E',"V"},
+        {'F',"U"},{'G',"T"},{'H',"S"},{'I',"R"},{'J',"Q"},
+        {'K',"P"},{'L',"O"},{'M',"N"},{'N',"M"},{'O',"L"},
+        {'P',"K"},{'Q',"J"},{'R',"I"},{'S',"H"},{'T',"G"},
+        {'U',"F"},{'v',"E"},{'W',"D"},{'X',"C"},{'Y',"B"},
+        {'Z',"A"},
+        {'0',"9"},{'1',"8"},{'2',"7"},{'3',"6"},{'4',"5"},
+        {'5',"4"},{'6',"3"},{'7',"2"},{'8',"1"},{'9',"0"},
+
+        {'!',"|"},{'@',"`"},{'#',"~"},{'$',"."},{'%',"+"},
+        {'^',"="},{'&',"/"},{'*',"?"},{'|',"!"},{'`',"@"},
+        {'.',"$"},{'+',"%"},{'=',"^"},{'/',"&"},{'?',"*"},
+        {'(',","},{'~',"#"},{',',")"}
+
+};
 
 void valid(string str)
 {
@@ -73,6 +97,7 @@ bool is_email_valid(const string& email)
 //------------------------------------
 int main()
 {
+    string encrypedpass;
     string email1 ;
     int choice,i,exit=0;
     string password,name,fname;
@@ -89,13 +114,17 @@ int main()
             cout<<"Enter your name:";
             cin.ignore();
             getline(cin,name);
-            cout<<"Entera username:";
+            cout<<"Enter username:";
             cin>>username;
 
             valid(username);
 
             cout<<"Enter a password:";
             cin>>password;
+            for(char letter: password){
+                encrypedpass += passencrypt[letter];
+            }
+
             //fname="test1.txt";
             //cout<<fname;
             //-----------
@@ -108,16 +137,16 @@ int main()
             //------------
            // ofstream reg;
             ofstream reg("test1.txt",ios::app);
-            reg<<name<<' '<<username<<' '<<password<<' '<<email1<<endl;
+            reg<<name<<' '<<username<<' '<<encrypedpass<<' '<<email1<<endl;
 
 
             //-------------------
             fileo.open(fname.c_str());
-            fileo<<username<<endl<<name<<endl<<password<<email1<<endl;
+            fileo<<username<<endl<<name<<endl<<encrypedpass<<email1<<endl;
             cout<<"You are successfully registered"<<endl;
 
-        }
-        else
+
+        }else
         {
             exit=1;
         }
@@ -129,10 +158,3 @@ int main()
 
 
 //-------------------
-
-
-
-//int main();
-// ofstream reg("database.txt",ios::app);
-  //      reg<<reguser<<' '<<regpass<<endl;
-
