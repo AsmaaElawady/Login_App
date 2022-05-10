@@ -60,39 +60,6 @@ bool is_email_valid(const string& email)
    // try to match the string with the regular expression
    return regex_match(email, pattern);
 //-----------
-        int count;
-        string email1,e;
-       // system("cls");
-        cout<<"please enter the following details"<<endl;
-
-        cout<<"email :";
-        cin>>email1;
-
-        ifstream input("test1.txt");
-        while(input>>e)
-        {
-                if(e!=email1)
-
-                {
-                        count=1;
-                        //system("cls");
-                }
-        }
-        input.close();
-
-
-        if(count!=1)
-        {
-                cout<<"accpted"<<endl;
-                cin.get();
-
-                int main();
-        }
-        else
-        {
-                cout<<"system refuse this email"<<endl;
-               int main();
-        }
 }
 //-----------------------6th function--------------------------------
 // this function will be before entering the password
