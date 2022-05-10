@@ -94,7 +94,21 @@ bool is_email_valid(const string& email)
                int main();
         }
 }
-//------------------------------------
+//-----------------------6th function--------------------------------
+// this function will be before entering the password
+void   passMessage6(){
+    string message ;
+
+    message= "password should contains small and capital letters,symbols and numbers\n"
+             ""
+             "";
+    cout <<"password should contains small and capital letters,symbols and numbers\n";
+
+
+}
+//------------------------------------------------------------
+
+//------------------------------------------------------------
 int main()
 {
     string encrypedpass;
@@ -106,7 +120,7 @@ int main()
     cout<<"Welcome to our system"<<endl;
     while(exit==0)
     {
-        cout<<"Choose one option 1-Login/2-Register"<<endl;
+        cout<<"Choose one option 1-Login/2-Register:"<<endl;
         cin>>choice;
 
          if(choice==2)
