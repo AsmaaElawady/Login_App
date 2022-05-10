@@ -106,7 +106,18 @@ void   passMessage6(){
 
 
 }
-//------------------------------------------------------------
+//---------------7th function---------------------------------------------
+void insurepassword7(string& password){
+    string insurePassword;
+    cout<< "Enter the password again: ";
+    cin >> insurePassword;
+
+    while(password != insurePassword ){
+        cout << "please make sure that they are the same:";
+        cin >> insurePassword;
+    }
+
+}
 
 //------------------------------------------------------------
 int main()
