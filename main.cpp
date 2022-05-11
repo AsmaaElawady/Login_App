@@ -9,6 +9,10 @@
 #include<map>
 
 using namespace std;
+bool emailFound = 0;
+string email1;
+void emailExist();
+//----------------------
 void threeChances();
 void changePass();
 string userpassword, loginencryptpass,username, userpass,loginUser, loginPass  ;
@@ -67,15 +71,18 @@ bool isPasswordstrong(string password){
 
 }
 //------------------------------
+//------------------------------
+//function to check format email
 bool is_email_valid(const string& email)
 {
-   // define a regular expression
-   const regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+    // define a regular expression
+    const regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 
-   // try to match the string with the regular expression
-   return regex_match(email, pattern);
-//-----------
+    // try to match the string with the regular expression
+
+    return regex_match(email, pattern);
 }
+//-----------------------------------------------
 //-----------------------6th function--------------------------------
 // this function will be before entering the password
 void   passMessage6(){
@@ -142,24 +149,17 @@ break;
         encrypedpass += passencrypt[letter];
     }
 
-    //fname="test1.txt";
-    //cout<<fname;
+
     //-----------
-     cout<<"enter your email:"<<endl;
-   cin>>email1;
-
-   cout << email1 << " : " << (is_email_valid(email1) ?"valid" : "invalid") << endl;
-
-    valid(email1 );
+     emailExist();
     //------------
-   // ofstream reg;
     ofstream reg("test1.txt",ios::app);
     reg<<name<<' '<<username<<' '<<encrypedpass<<' '<<email1<<endl;
 
 
     //-------------------
     fileo.open(fname.c_str());
-    fileo<<username<<endl<<name<<endl<<encrypedpass<<email1<<endl;
+    fileo<<username<<endl<<name<<endl<<encrypedpass<<endl<<email1<<endl;
     cout<<"You are successfully registered"<<endl;
 
 //---------change password part----------------
@@ -327,3 +327,35 @@ else{cout<< "this password is incorrect"<< endl; }
 //here to enter the new pass
 
 }
+//-----------------------------------
+//function to check whether the email exists or not
+void emailExist() {
+    cout << "please enter your user email:  ";
+    cin >> email1;
+
+    cout << email1 << " : " << (is_email_valid(email1) ? "valid format" : "invalid format") << endl;
+    valid(email1);
+    ifstream file;
+    file.open("test1.txt");
+    string line, line2;
+    int offset, offset2;
+    while (!file.eof()) {
+        getline(file, line);
+        if ((offset = line.find(email1, 0)) != string::npos) {
+            emailFound = 1;
+        }
+    }
+    if (emailFound) {
+        cout << "failed , please try again   " << endl;
+    }
+    else {
+
+        cout << "accepted" << endl;
+        emailFound = 0;
+
+        file.close();
+
+    }
+}
+
+//-------------------
