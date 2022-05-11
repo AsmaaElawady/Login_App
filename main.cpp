@@ -10,7 +10,14 @@
 
 using namespace std;
 void threeChances();
-string username;
+void changePass();
+string userpassword, loginencryptpass,username, userpass,loginUser, loginPass  ;
+void threeChances();
+void usernameExist();
+bool newPassExist = 0;
+bool userFound = 0;
+bool passfound = 0;
+bool oldpassFound = 0;
 //dictionary to encrypt the password according to the affine cipher method
 map<char,string> passencrypt =
 {
@@ -103,56 +110,62 @@ int main()
         cout<<" 2-Register"<<endl;
         cout<<" 3-change password"<<endl;
         cin>>choice;
+//-----login part-----------
 if(choice==1){
 threeChances();
-       // cout <<userpassword;
+// cout <<userpassword;
 break;
 
 }
+//-----------register part--------------
+ if(choice==2)
+{
+    cout<<"Enter your name:";
+    cin.ignore();
+    getline(cin,name);
+    cout<<"Enter username:";
+    cin>>username;
 
-         if(choice==2)
-        {
-            cout<<"Enter your name:";
-            cin.ignore();
-            getline(cin,name);
-            cout<<"Enter username:";
-            cin>>username;
+    valid(username);
 
-            valid(username);
-
-            cout<<"Enter a password:";
-            cin>>password;
-            for(char letter: password){
-                encrypedpass += passencrypt[letter];
-            }
-
-            //fname="test1.txt";
-            //cout<<fname;
-            //-----------
-             cout<<"enter your email:"<<endl;
-           cin>>email1;
-
-           cout << email1 << " : " << (is_email_valid(email1) ?"valid" : "invalid") << endl;
-
-            valid(email1 );
-            //------------
-           // ofstream reg;
-            ofstream reg("test1.txt",ios::app);
-            reg<<name<<' '<<username<<' '<<encrypedpass<<' '<<email1<<endl;
-
-
-            //-------------------
-            fileo.open(fname.c_str());
-            fileo<<username<<endl<<name<<endl<<encrypedpass<<email1<<endl;
-            cout<<"You are successfully registered"<<endl;
-
-
-        }else
-        {
-            exit=1;
-        }
+    cout<<"Enter a password:";
+    cin>>password;
+    for(char letter: password){
+        encrypedpass += passencrypt[letter];
     }
-    cout<<"Thank you for visiting"<<endl;
+
+    //fname="test1.txt";
+    //cout<<fname;
+    //-----------
+     cout<<"enter your email:"<<endl;
+   cin>>email1;
+
+   cout << email1 << " : " << (is_email_valid(email1) ?"valid" : "invalid") << endl;
+
+    valid(email1 );
+    //------------
+   // ofstream reg;
+    ofstream reg("test1.txt",ios::app);
+    reg<<name<<' '<<username<<' '<<encrypedpass<<' '<<email1<<endl;
+
+
+    //-------------------
+    fileo.open(fname.c_str());
+    fileo<<username<<endl<<name<<endl<<encrypedpass<<email1<<endl;
+    cout<<"You are successfully registered"<<endl;
+
+//---------change password part----------------
+}if(choice == 3){
+changePass();
+
+}
+
+else
+{
+    exit=1;
+}
+}
+cout<<"Thank you for visiting"<<endl;
 }
 
 
@@ -204,6 +217,7 @@ if((offset2 = line2.find(loginencryptpass,0)) != string::npos){
     passfound = 1;
 
 }}
+file2.close();
 
        }
 // function 13 ,14
@@ -243,4 +257,65 @@ loginencryptpass = "";
 
 }
 
-//---------------------------------------
+// the below function is to change the password for the user
+void changePass(){
+    threeChances();
+        string oldpass, encryptoldpass;
+        cout<<"please enter your old password: "<< endl;
+        cin>> oldpass;
+        for(char letter: oldpass){
+                encryptoldpass += passencrypt[letter];
+            }
+
+ifstream file3;
+string line3;
+int offset3;
+file3.open("test1.txt");
+// the below part is to check the old password existence in the file
+while (!file3.eof()){
+getline(file3, line3);
+if((offset3 = line3.find(encryptoldpass,0)) != string::npos){
+    oldpassFound = 1;
+
+file3.close();
+}}
+if(oldpassFound){
+    string newpass1, newpass2;
+cout<<"please enter the new desired password: "<< endl;// taking the new password
+cin >> newpass1;
+cout<< "please reenter the new password"<< endl;
+cin>> newpass2;
+if(newpass1 != newpass2){
+    cout<< "password doesn't match" << endl;// making sure the password matches
+}
+else if (newpass1 == newpass2){
+// searching for the new password in the file
+ifstream file4;
+int offset4;
+string line4;
+file4.open("test1.txt");
+while (!file4.eof()){
+getline(file4, line4);
+if((offset4 = line4.find(newpass1,0)) != string::npos){
+newPassExist = 1;
+
+}
+
+
+}// if the word is in the file this mean it is already used which is not accepted
+if(newPassExist){
+     cout<<"this password is already used"<< endl;
+    cout<<"please try another password";
+}
+// the word is not in the file so we add the new word to the file
+else{
+
+}
+
+
+}
+}
+else{cout<< "this password is incorrect"<< endl; }
+//here to enter the new pass
+
+}

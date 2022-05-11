@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1652258448 source:c:\users\marwa\onedrive\documents\a4\a4 v2\assignment-4\main.cpp
+	<sstream>
+	<map>
+	<cctype>
+	<cmath>
+	<iostream>
+	<string>
+	<regex>
+	<fstream>
+	<map>
+
