@@ -9,9 +9,9 @@
 #include<map>
 
 using namespace std;
-
+void threeChances();
 string username;
-//dictionary to encrypt the password
+//dictionary to encrypt the password according to the affine cipher method
 map<char,string> passencrypt =
 {
 
@@ -98,8 +98,17 @@ int main()
     cout<<"Welcome to our system"<<endl;
     while(exit==0)
     {
-        cout<<"Choose one option 1-Login/2-Register:"<<endl;
+        cout<<"Choose one option:"<<endl;
+        cout<<" 1-Login "<<endl;
+        cout<<" 2-Register"<<endl;
+        cout<<" 3-change password"<<endl;
         cin>>choice;
+if(choice==1){
+threeChances();
+       // cout <<userpassword;
+break;
+
+}
 
          if(choice==2)
         {
@@ -147,6 +156,91 @@ int main()
 }
 
 
+//---------------------------------------------
+// function 12 without the getch()
+//function for the login to check whether the user name and password exists or not
+void usernameExist(){
+// the below piece of code is to check the user name existence
+cout << "please enter your user name:  ";
+cin>> loginUser;
+ifstream file;
+file.open("test1.txt");
+string line, line2;
+int offset, offset2;
+while (!file.eof()){
+getline(file, line);
+if((offset = line.find(loginUser,0)) != string::npos){
+    userFound = 1;
+}
+    }
+file.close();
+ifstream file2;
+file2.open("test1.txt");
+
+// the below piece of code is to take the password and change it to *
+cout<<"please enter your password:  ";
+cin >> userpassword;
+      /*  for(int i = 0; i<sizeof(userpass); i++){
+            userpass[i]= getch();
+            cout<<"*";
+            userpassword +=  userpass[i];
+        if(userpass[i]==' '){
+
+            break;
+        }
+                   // userpassword +=  userpass[i];
+
+        }
+        userpass[i] = '\0';
+        cout<<"\n";*/
+// the below part is to check the password existence in the file
+for(char letter: userpassword){
+                loginencryptpass += passencrypt[letter];}
+
+//cout<< loginencryptpass;
+while (!file2.eof()){
+getline(file2, line2);
+if((offset2 = line2.find(loginencryptpass,0)) != string::npos){
+    passfound = 1;
+
+}}
+
+       }
+// function 13 ,14
+//--------------------------------------------------
+void threeChances(){
+
+usernameExist();
+if(passfound && userFound){
+    cout<< "logged in successfully"<<endl;
+}
+else{
+
+    cout<< "failed to login, please try again"<< endl;
+userFound = 0;
+passfound = 0;
+loginencryptpass = "";
+    usernameExist();
+
+    if(passfound && userFound){
+        cout<< "logged in successfully"<<endl;}
+        else{
+            cout <<"failed to login, please try again"<<endl;
+            userFound=0;
+            passfound =0;
+            loginencryptpass = "";
+            usernameExist();
+            if(userFound && passfound){
+                cout<<"logged in successfully"<< endl;
+
+            }
+            else{cout<< "denied access"<<endl;}
+        }
+    }
 
 
-//-------------------
+
+
+}
+
+//---------------------------------------
