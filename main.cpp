@@ -58,6 +58,14 @@ void valid(string str)
     }
 
 }
+//-----------------------------
+//this  function to check if the password strong or not
+bool isPasswordstrong(string password){
+    regex passwordformat("(?=.*[a-z)(?=.*[A-Z])(?=.*\\d)(?=.*[&*%$@!?])[A-Za-z\\d&*%$@!?]{8,}");
+    return regex_match(password,passwordformat);
+
+
+}
 //------------------------------
 bool is_email_valid(const string& email)
 {
