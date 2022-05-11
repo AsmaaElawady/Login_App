@@ -148,11 +148,34 @@ break;
     for(char letter: password){
         encrypedpass += passencrypt[letter];
     }
+    //-----------//function to check whether the email exists or not//--------------------------------------------------------------------------------------
+    cout << "please enter your user email:  ";
+    cin >> email1;
 
+    cout << email1 << " : " << (is_email_valid(email1) ? "valid format" : "invalid format") << endl;
+    valid(email1);
+    ifstream file;
+    file.open("test1.txt");
+    string line, line2;
+    int offset, offset2;
+    while (!file.eof()) {
+        getline(file, line);
+        if ((offset = line.find(email1, 0)) != string::npos) {
+            emailFound = 1;
+        }
+    }
+    if (emailFound) {
+        cout << "failed , please try again   " << endl;
+    }
+    else {
 
-    //-----------
-     emailExist();
-    //------------
+        cout << "accepted" << endl;
+        emailFound = 0;
+
+        file.close();
+
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------
     ofstream reg("test1.txt",ios::app);
     reg<<name<<' '<<username<<' '<<encrypedpass<<' '<<email1<<endl;
 
@@ -328,34 +351,4 @@ else{cout<< "this password is incorrect"<< endl; }
 
 }
 //-----------------------------------
-//function to check whether the email exists or not
-void emailExist() {
-    cout << "please enter your user email:  ";
-    cin >> email1;
 
-    cout << email1 << " : " << (is_email_valid(email1) ? "valid format" : "invalid format") << endl;
-    valid(email1);
-    ifstream file;
-    file.open("test1.txt");
-    string line, line2;
-    int offset, offset2;
-    while (!file.eof()) {
-        getline(file, line);
-        if ((offset = line.find(email1, 0)) != string::npos) {
-            emailFound = 1;
-        }
-    }
-    if (emailFound) {
-        cout << "failed , please try again   " << endl;
-    }
-    else {
-
-        cout << "accepted" << endl;
-        emailFound = 0;
-
-        file.close();
-
-    }
-}
-
-//-------------------
