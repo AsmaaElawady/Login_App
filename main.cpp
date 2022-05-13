@@ -52,6 +52,17 @@ bool is_email_valid(const string& email)
     return regex_match(email, pattern);
 }
 //-----------------------------------------------
+//function to check format name
+bool is_name_valid(const string& name)
+{
+   // define a regular expression
+   const regex pattern( "^([a-zA-Z]{1,12})([\\s|,])*([a-zA-Z]{2,24})$");
+
+   // try to match the string with the regular expression
+   return regex_match(name, pattern);
+
+}
+//-------------------------------------------------------------
 //function to check format phone number
 bool is_phone_number1_valid(const string& phone_number)
 {
@@ -89,7 +100,9 @@ void insurepassword7(string& password){
 
 //------------------------------------------------------------
 int main()
-{ string phone_number;
+{
+    string name1;
+     string phone_number;
     string encrypedpass;
     string email1 ;
     int choice,i,exit=0;
@@ -115,9 +128,14 @@ break;
 //-----------register part--------------
  if(choice==2)
 {
-    cout<<"Enter your name:";
-    cin.ignore();
-    getline(cin,name);
+
+    cout<<"enter your name:";
+          cin.ignore();
+    getline(cin,name1 );
+
+           cout << name1 << " : " << (is_name_valid(name1) ?"valid format" : "invalid format") << endl;
+
+            valid(name1 );
     //---------------------------
     cout<<"enter your phone_number:";
            cin>>phone_number;
@@ -166,12 +184,12 @@ break;
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------------------
     ofstream reg("test1.txt",ios::app);
-    reg<<name<<' '<<phone_number<<' '<<username<<' '<<encrypedpass<<' '<<email1<<endl;
+    reg<<name1<<' '<<phone_number<<' '<<username<<' '<<encrypedpass<<' '<<email1<<endl;
 
 
     //-------------------
     fileo.open(fname.c_str());
-    fileo<<username<<endl<<phone_number<<endl<<name<<endl<<encrypedpass<<endl<<email1<<endl;
+    fileo<< name1<<endl<<phone_number<<endl<<username<<endl<<encrypedpass<<endl<<email1<<endl;
     cout<<"You are successfully registered"<<endl;
 
 //---------change password part----------------
