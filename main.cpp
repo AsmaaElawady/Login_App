@@ -1,12 +1,4 @@
-#include <sstream>
-#include <map>
-#include <cctype>
-#include <cmath>
-#include <iostream>
-#include <string>
-#include <regex>
-#include<fstream>
-#include<map>
+#include "loginApp header.h"
 
 using namespace std;
 bool emailFound = 0;
@@ -15,7 +7,8 @@ void emailExist();
 //----------------------
 void threeChances();
 void changePass();
-string userpassword, loginencryptpass,username, userpass,loginUser, loginPass  ;
+string userpassword, loginencryptpass,username, userpass,loginUser, loginPass, encryptnewpass, searchennew;
+  ;
 void threeChances();
 void usernameExist();
 bool newPassExist = 0;
@@ -23,31 +16,7 @@ bool userFound = 0;
 bool passfound = 0;
 bool oldpassFound = 0;
 //dictionary to encrypt the password according to the affine cipher method
-map<char,string> passencrypt =
-{
 
-
-        {'a',"z"},{'b',"y"},{'c',"x"},{'d',"w"},{'e',"v"},
-        {'f',"u"},{'g',"t"},{'h',"s"},{'i',"r"},{'j',"q"},
-        {'k',"p"},{'l',"o"},{'m',"n"},{'n',"m"},{'o',"l"},
-        {'p',"k"},{'q',"j"},{'r',"i"},{'s',"h"},{'t',"g"},
-        {'u',"f"},{'v',"e"},{'w',"d"},{'x',"c"},{'y',"b"},
-        {'z',"a"},
-        {'A',"Z"},{'B',"Y"},{'C',"X"},{'D',"W"},{'E',"V"},
-        {'F',"U"},{'G',"T"},{'H',"S"},{'I',"R"},{'J',"Q"},
-        {'K',"P"},{'L',"O"},{'M',"N"},{'N',"M"},{'O',"L"},
-        {'P',"K"},{'Q',"J"},{'R',"I"},{'S',"H"},{'T',"G"},
-        {'U',"F"},{'v',"E"},{'W',"D"},{'X',"C"},{'Y',"B"},
-        {'Z',"A"},
-        {'0',"9"},{'1',"8"},{'2',"7"},{'3',"6"},{'4',"5"},
-        {'5',"4"},{'6',"3"},{'7',"2"},{'8',"1"},{'9',"0"},
-
-        {'!',"|"},{'@',"`"},{'#',"~"},{'$',"."},{'%',"+"},
-        {'^',"="},{'&',"/"},{'*',"?"},{'|',"!"},{'`',"@"},
-        {'.',"$"},{'+',"%"},{'=',"^"},{'/',"&"},{'?',"*"},
-        {'(',","},{'~',"#"},{',',")"}
-
-};
 
 void valid(string str)
 {
@@ -134,6 +103,7 @@ int main()
         cout<<" 1-Login "<<endl;
         cout<<" 2-Register"<<endl;
         cout<<" 3-change password"<<endl;
+        cout<< "4- Exit"<< endl;
         cin>>choice;
 //-----login part-----------
 if(choice==1){
@@ -210,7 +180,7 @@ changePass();
 
 }
 
-else
+if (choice == 4)
 {
     exit=1;
 }
@@ -220,154 +190,3 @@ cout<<"Thank you for visiting"<<endl;
 
 
 //---------------------------------------------
-// function 12 without the getch()
-//function for the login to check whether the user name and password exists or not
-void usernameExist(){
-// the below piece of code is to check the user name existence
-cout << "please enter your user name:  ";
-cin>> loginUser;
-ifstream file;
-file.open("test1.txt");
-string line, line2;
-int offset, offset2;
-while (!file.eof()){
-getline(file, line);
-if((offset = line.find(loginUser,0)) != string::npos){
-    userFound = 1;
-}
-    }
-file.close();
-ifstream file2;
-file2.open("test1.txt");
-
-// the below piece of code is to take the password and change it to *
-cout<<"please enter your password:  ";
-cin >> userpassword;
-      /*  for(int i = 0; i<sizeof(userpass); i++){
-            userpass[i]= getch();
-            cout<<"*";
-            userpassword +=  userpass[i];
-        if(userpass[i]==' '){
-
-            break;
-        }
-                   // userpassword +=  userpass[i];
-
-        }
-        userpass[i] = '\0';
-        cout<<"\n";*/
-// the below part is to check the password existence in the file
-for(char letter: userpassword){
-                loginencryptpass += passencrypt[letter];}
-
-//cout<< loginencryptpass;
-while (!file2.eof()){
-getline(file2, line2);
-if((offset2 = line2.find(loginencryptpass,0)) != string::npos){
-    passfound = 1;
-
-}}
-file2.close();
-
-       }
-// function 13 ,14
-//--------------------------------------------------
-void threeChances(){
-
-usernameExist();
-if(passfound && userFound){
-    cout<< "logged in successfully"<<endl;
-}
-else{
-
-    cout<< "failed to login, please try again"<< endl;
-userFound = 0;
-passfound = 0;
-loginencryptpass = "";
-    usernameExist();
-
-    if(passfound && userFound){
-        cout<< "logged in successfully"<<endl;}
-        else{
-            cout <<"failed to login, please try again"<<endl;
-            userFound=0;
-            passfound =0;
-            loginencryptpass = "";
-            usernameExist();
-            if(userFound && passfound){
-                cout<<"logged in successfully"<< endl;
-
-            }
-            else{cout<< "denied access"<<endl;}
-        }
-    }
-
-
-
-
-}
-
-// the below function is to change the password for the user
-void changePass(){
-    threeChances();
-        string oldpass, encryptoldpass;
-        cout<<"please enter your old password: "<< endl;
-        cin>> oldpass;
-        for(char letter: oldpass){
-                encryptoldpass += passencrypt[letter];
-            }
-
-ifstream file3;
-string line3;
-int offset3;
-file3.open("test1.txt");
-// the below part is to check the old password existence in the file
-while (!file3.eof()){
-getline(file3, line3);
-if((offset3 = line3.find(encryptoldpass,0)) != string::npos){
-    oldpassFound = 1;
-
-file3.close();
-}}
-if(oldpassFound){
-    string newpass1, newpass2;
-cout<<"please enter the new desired password: "<< endl;// taking the new password
-cin >> newpass1;
-cout<< "please reenter the new password"<< endl;
-cin>> newpass2;
-if(newpass1 != newpass2){
-    cout<< "password doesn't match" << endl;// making sure the password matches
-}
-else if (newpass1 == newpass2){
-// searching for the new password in the file
-ifstream file4;
-int offset4;
-string line4;
-file4.open("test1.txt");
-while (!file4.eof()){
-getline(file4, line4);
-if((offset4 = line4.find(newpass1,0)) != string::npos){
-newPassExist = 1;
-
-}
-
-
-}// if the word is in the file this mean it is already used which is not accepted
-if(newPassExist){
-     cout<<"this password is already used"<< endl;
-    cout<<"please try another password";
-}
-// the word is not in the file so we add the new word to the file
-else{
-
-}
-
-
-}
-}
-else{cout<< "this password is incorrect"<< endl; }
-//here to enter the new pass
-
-}
-//-----------------------------------
-
