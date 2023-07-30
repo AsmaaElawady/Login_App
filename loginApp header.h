@@ -12,17 +12,26 @@
 #include <stdio.h>
 #include <conio.h>
 
-void threeChances();
-void changePass();
-string userpassword, loginencryptpass,username, userpass,loginUser, loginPass, encryptnewpass, searchennew;
-  ;
-void threeChances();
-void usernameExist();
-bool newPassExist = 0;
-bool userFound = 0;
-bool passfound = 0;
-bool oldpassFound = 0;
 
-map<char,string> passencrypt ;
+using namespace std;
+void emailExist();
+//----------------------
+void changePass();
+
+void threeChances();
+
+
+void valid(string str);
+bool is_email_valid(const string& email);
+bool is_phone_number1_valid(const string& phone_number);
+void  passMessage6();
+void changePass();
+void threeChances();
+void insurepassword7(string& password);
+void emailExist();
+bool isPasswordstrong(string password);
+
+bool is_name_valid(const string& name);
+
 
 #endif // LOGINAPP_HEADER_H_INCLUDED
